@@ -123,18 +123,15 @@ class Calculate extends Model
              $dirty_price
          ]);
         $total = round($total);
-        // dd($total);
         $weekly = $total + $this->_constants['frequency']['weekly'];
         $biweekly = $total + $this->_constants['frequency']['biweekly'];
         $monthly = $total + $this->_constants['frequency']['monthly'];
         $once = $total + $this->_constants['frequency']['once'];
         $total_curent = $total + $frequency;
-        // dd($total_curent);
         $stripe = str_replace('.', '', $total_curent);
         $stripe = $stripe . '00';
         $frequency = $this->_order['frequency'];
         $total = [$total_curent, $once, $weekly, $biweekly, $monthly, $stripe, $frequency];
-        // dd($total);
         return ($total);
     }
 }

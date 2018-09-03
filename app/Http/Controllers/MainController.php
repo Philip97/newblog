@@ -91,7 +91,7 @@ class MainController extends Controller
                 $validated_data = $request->validate([
                     'file[]' => 'mimes:jpeg,png|max:5170',
                 ]);
-                $file = Input::file($request['file[]']); //all files 0 => 'name'
+                $file = Input::file($request['file[]']);
                 $files_urls = [];
                 $files_id = [];
                 $order = Order::getFromSession();
