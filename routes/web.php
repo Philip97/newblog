@@ -17,13 +17,10 @@ Route::get('/your-home', 'MainController@p2YourHome');
 Route::post('/your-home', 'MainController@get2YourHome');
 Route::post('/uploadImg', 'MainController@uploadImg');
 Route::get('/materials', 'MainController@p3Materials');
+Route::post('/deleteImg', 'MainController@deleteImg');
 Route::post('/materials', 'MainController@get3Materials');
 Route::get('/extras', 'MainController@p4Extras');
 Route::post('/extras', 'MainController@get4Extras');
 Route::get('/mail/send', 'MailController@send');
 Route::post('/mail/send', 'MailController@send');
 Route::post('/pay', 'PayController@pay');
-
-Route::get('/otl', 'PayController@otl');
-Route::get('/otlPay', 'PayController@otlPay');
-Route::post('/otlPay', 'PayController@getOtlPay');

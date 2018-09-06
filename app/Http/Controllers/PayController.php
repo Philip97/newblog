@@ -33,7 +33,6 @@ class PayController extends Controller
             } elseif ($total[6] == 'biweekly') {
                 $subscribe = $this->subscribeBiweekly($order->user_id, $total[6], $request, $total[5]);
             } else {
-                return "once";
                 $subscribe = $this->subscribeFrequency($order->user_id, $total[6], $request, $total[5]);
             }
             if(MailController::send()){

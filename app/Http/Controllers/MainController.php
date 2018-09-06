@@ -125,12 +125,11 @@ class MainController extends Controller
         $picture_url = explode('/', $picture['url']);
         Storage::delete($picture_url[3]);
         $picture->delete();
-         return (
-                response()->json([
-                    'success' => $image_id
-                ])
-            );
-
+        return (
+            response()->json([
+                'success' => $image_id
+            ])
+        );
     }
 
      public function p3Materials()
@@ -182,13 +181,16 @@ class MainController extends Controller
         } elseif ($request['ajaxExtraDelete']) {
             $extras = $order->ajaxExtraDelete($request['ajaxExtraDelete'], $order);
         } else {
-            $extras = $order->saveExtras($request['extras'] ?? 'no_data', $order);
+            $extras = $order->saveExtras(
+                $request['extras'] ?? 'no_data',
+                $order
+            );
         }
         $order = Order::getFromSession();
         $total = Calculate::init($order)->getTotalPtice();
         $get_extras = $order->extras()->get();
         $extras = $get_extras;
-        if($request->ajax()){
+        if ($request->ajax()) {
                 // dd($total);
             return (
                 response()->json([

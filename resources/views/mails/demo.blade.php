@@ -93,5 +93,5 @@ Hello <i>{{ $order->firstName }}</i>,
 
 </div>
  
-<p><u>Your total price{{ $calculate[0] }}</u></p>
+<p><u>Your total price {{ $calculate[0] }}</u></p>
  

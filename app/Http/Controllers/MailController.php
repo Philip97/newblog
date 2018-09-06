@@ -22,12 +22,7 @@ class MailController extends Controller
             $countertops[0],
             $floorings[0]
         );
-        Mail::to("pr97110@gmial.com")->send(new DemoEmail($order, $extras[0], $countertops[0], $floorings[0], $calculate[0]));
+        Mail::to(["pr97110@gmial.com", "orherMail@mail.ru"])->send(new DemoEmail($order, $extras[0], $countertops[0], $floorings[0], $calculate));
         return true;
-        return (
-            response()->json([
-                'success' => 'success'
-            ])
-        );
     }
 }

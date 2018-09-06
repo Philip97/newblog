@@ -222,14 +222,12 @@
             </div> 
             <div class="col-8">
             <label for="advanced1" class="labl" >Are there areas needing special attention?(optional)</label>
-                <textarea id="advanced1" name="attention" rows="3" cols="33" maxlength="900" wrap="hard">
-                </textarea>
+                <textarea id="advanced1" name="attention" rows="3" cols="33" maxlength="900" wrap="hard"></textarea>
             </div>
 
             <div class="col-8">
             <label for="advanced2" class="labl">Anything else we should to know?(optional)</label>
-                <textarea id="advanced2" name="more" rows="3" cols="33" maxlength="900" wrap="hard">
-                </textarea>
+                <textarea id="advanced2" name="more" rows="3" cols="33" maxlength="900" wrap="hard"></textarea>
             </div>
             <div class="w-100"></div> 
 
