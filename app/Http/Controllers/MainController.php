@@ -164,9 +164,11 @@ class MainController extends Controller
             $extras = $get_extras[0];
             $extras = $get_extras;
             $total = Calculate::init($order)->getTotalPtice();
+// dd($total, 'total', $order, 'order', $extras, 'extras');
             return view('4_page', compact('total', 'order', 'extras'));
         }
         $total = Calculate::init($order)->getTotalPtice();
+// dd($total, 'total', $order, 'order');
         return view('4_page', compact('total', 'order'));
     }
 
