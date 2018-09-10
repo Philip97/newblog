@@ -1,7 +1,6 @@
 var obj = new Vue({
     el: '#vueExtras',
     data: {
-    //         total: {curent: "", once: "", weekly: "", biweekly: "", monthly: "", stripe: "", frequency: ""},
             total: {total: false},
             extrasText: {},
             extras1: {check: false, id: "extras1", value:"inside_fridge", text: "Inside Fridge"},
@@ -11,13 +10,14 @@ var obj = new Vue({
             extras5: {check: false, id: "extras5", value:"laundry_wash_s_dry", text: "Laundry Wash & Dry"},
             extras6: {check: false, id: "extras6", value:"bed_sheet_change", text: "Bed sheet Change"},
             extras7: {check: false, id: "extras7", value:"blinds_cleaning", text: "Blinds Cleaning"},
-            weekly: {value: "weekly", clicked: "ss"},
-            biweekly: {value: "biweekly", clicked: "ss"},
-            monthly: {value: "monthly", clicked: "ss"}
+            weekly: {value: "weekly", clicked: false, init: false},
+            biweekly: {value: "biweekly", clicked: false, init: false},
+            monthly: {value: "monthly", clicked: false, init: false},
+            tr: true,
+            initProp: 0
         },
     methods: {
         useAxios(data){
-            // console.log(data);
             data.check = !data.check;
             if(data.check){                                            //add
                 var val2 = data.value;
@@ -62,12 +62,30 @@ var obj = new Vue({
                     console.log(error);
                 });
             }
-            // console.log(obj.id);
-            // Vue.set(obj.data.id, 'check', !data.check);
-            
         },
-        btnClick(data){
-            console.log(data)
+        btnClick(data, e){
+            e.preventDefault();
+            Vue.set(obj.weekly, 'clicked', false);
+            Vue.set(obj.biweekly, 'clicked', false);
+            Vue.set(obj.monthly, 'clicked', false);
+            console.log('after');
+            data.clicked = !data.clicked;
+            axios.post('/extras', {                                             //frequency_last: biweekly
+                    frequency_last: data.value
+                })
+                .then(function (response) {
+                    Vue.set(obj.total, 'total', true);
+                    Vue.set(obj.total, 'curent', response.data.total[0]);
+                    Vue.set(obj.total, 'once', response.data.total[1]);
+                    Vue.set(obj.total, 'weekly', response.data.total[2]);
+                    Vue.set(obj.total, 'biweekly', response.data.total[3]);
+                    Vue.set(obj.total, 'monthly', response.data.total[4]);
+                    Vue.set(obj.total, 'stripe', response.data.total[5]);
+                    Vue.set(obj.total, 'frequency', response.data.total[6]);
+                })
+                .catch(function (error) {
+                    console.log(error);
+                });
         },
         addExtrasText(){
             if (obj.extras1.check) {
@@ -90,6 +108,26 @@ var obj = new Vue({
             }
             if (obj.extras7.check) {
                 Vue.set(obj.extrasText, obj.extras7.value, obj.extras7.text);
+            }
+        },
+        init() {
+            if(this.initProp === 0) {
+                console.log(this.initProp);
+                if (this.weekly.init) {
+                    Vue.set(this.weekly, 'clicked', true);
+                    Vue.delete(this.weekly, 'init');
+                }
+                if (this.biweekly.init) {
+                    Vue.set(this.biweekly, 'clicked', true);
+                    Vue.delete(this.biweekly, 'init');
+                }
+                if (this.monthly.init) {
+                    Vue.set(this.monthly, 'clicked', true);
+                    Vue.delete(this.monthly, 'init');
+                }
+                this.initProp++;
+            } else {
+               console.log(this);
             }
         }
     }

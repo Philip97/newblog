@@ -123,7 +123,40 @@
                         </span>
                     </div>
                 </div><hr>
-                
+                <div class="col-9">
+                    <p style="margin: 0px">Confirm your cleaning frequency</p>
+                    <div :class="{ blu_col: weekly.clicked, inl_block: tr}">
+                        <input type="submit" @click="btnClick(weekly, $event)" :v-model="weekly"
+                        @if($order['frequency'] == 'weekly')
+                            :attr="init()"
+                        @endif
+                        name="frequency_last" :value="weekly.value"
+                        :class="{ blu_col2: weekly.clicked, last_btn: tr}"
+                        >
+                        <p class="inl_block">$<span class='weekly'>{{($total[2])}}</span> per cleanig</p>
+                    </div>
+                    <div :class="{ blu_col: biweekly.blueDiv, inl_block: tr}">
+                        <input type="submit" @click="btnClick(biweekly, $event)" :v-model="biweekly" 
+                        @if($order['frequency'] == 'biweekly')
+                            :attr="init()"
+                        @endif
+                        name="frequency_last" :value="biweekly.value" 
+                        :class="{ blu_col2: biweekly.clicked, last_btn: tr}"
+                        >
+                        <p class="inl_block">$<span class='biweekly'>{{($total[3])}}</span> per cleanig</p>
+                    </div>
+                    <div :class="{ blu_col: monthly.clicked, inl_block: tr}">
+                        <input type="submit" @click="btnClick(monthly, $event)" :v-model="monthly"
+                        @if ($order['frequency'] == 'monthly')  
+                            :attr="init()"
+                        @endif
+                        name="frequency_last" :value="monthly.value"
+                        :class="{ blu_col2: monthly.clicked, last_btn: tr}"
+                        >
+                        <p class="inl_block">$<span class='monthly'>{{($total[4])}}</span> per cleanig</p>
+                    </div>
+                    </form>
+                </div>
             </div>
             <div class="col-3" id='my_side_bar'>
                 <p class="price_top">Clining price</p>
@@ -174,48 +207,9 @@
         </div>
 
             <div class="row ">
-                <div class="col-9">
-                    <p style="margin: 0px">Confirm your cleaning frequency</p>
-                    <div class="inl_block
-                    @if($order['frequency'] == 'weekly')
-                        blu_col
-                    @endif
-                    ">
-                        <input type="submit" @click="btnClick(weekly)" :v-model="weekly" name="frequency_last" :value="weekly.value" class="last_btn
-                        @if($order['frequency'] == 'weekly')
-                            blu_col2
-                        @endif
-                         ">
-                        <p class="inl_block">$<span class='weekly'>{{($total[2])}}</span> per cleanig</p>
-                    </div>
-                    <div class="inl_block
-                    @if($order['frequency'] == 'biweekly')
-                        blu_col
-                    @endif
-                    ">
-                        <input type="submit" @click="btnClick(biweekly)" :v-model="biweekly" name="frequency_last" :value="biweekly.value" class="last_btn
-                        @if($order['frequency'] == 'biweekly')
-                            blu_col2
-                        @endif
-                    ">
-                        <p class="inl_block">$<span class='biweekly'>{{($total[3])}}</span> per cleanig</p>
-                    </div>
-                    <div class="inl_block 
-                    @if ($order['frequency'] == 'monthly')
-                            blu_col
-                    @endif
-                    ">
-                        <input type="submit" @click="btnClick(monthly)" :v-model="monthly" name="frequency_last" :value="monthly.value" class="last_btn
-                        @if ($order['frequency'] == 'monthly')  
-                            blu_col2
-                        @endif
-                        ">
-                        <p class="inl_block">$<span class='monthly'>{{($total[4])}}</span> per cleanig</p>
-                    </div>
-                    </form>
-                </div>
+            <div class="col-9"></div>
                 <div class="col-3 align-self-center">
-                    <!-- <form method="post" action="pay">
+                    <form method="post" action="pay">
                         {{ csrf_field() }}
                         <div class="row justify-content-center">
                             <label for='pay_div'>
@@ -231,7 +225,7 @@
                                      </script>
                                  </div> 
                              </label>
-                             <input type="submit" name="send_mail" value="confirm" class="last_btn" style="margin-top: -30px;" > -->
+                             <!-- <input type="submit" name="send_mail" value="confirm" class="last_btn" style="margin-top: -30px;" > -->
                         </div>
                     </form>
                 </div>
