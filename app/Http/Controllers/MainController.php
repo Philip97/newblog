@@ -191,17 +191,15 @@ class MainController extends Controller
         $order = Order::getFromSession();
         $total = Calculate::init($order)->getTotalPtice();
         $get_extras = $order->extras()->get();
-        $extras = $get_extras;
         if ($request->ajax()) {
-                // dd($total);
             return (
                 response()->json([
                     'clicked_btn' => $request['frequency_last'],
-                    'extras'=> $extras,
+                    'extras'=> $get_extras,
                     'total' => $total
                 ])
             );
         }
-        return view('4_page', compact('total', 'order', 'extras'));
+        return view('4_page', compact('total', 'order', 'get_extras'));
     }
 }

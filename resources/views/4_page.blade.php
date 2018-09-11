@@ -47,43 +47,43 @@
                     <p>You can choose any of these items to be cleaned every 8 weeks</p>
                     <div class="row justify-content-around">
                         <span class='extras_span'>
-                            <input @click="useAxios(extras1)" :v-model="extras1" type="checkbox" :id="extras1.id" class="inp_extras" name="extras[]" :value="extras1.value"
+                            <input @click="useAxios(inside_fridge)" :v-model="inside_fridge" type="checkbox" id="inside_fridge" class="inp_extras" name="extras[]" value="inside_fridge"
                             @if($extras[0]['inside_fridge'] ?? false )
                                 checked="checked"
-                                :ckeck="extras1.check = true"
+                                :ckeck="inside_fridge.check = true"
                             @endif
                             >
-                            <label for="extras1"> </label>
+                            <label for="inside_fridge"> </label>
                             Inside Fridge
                         </span>
                         <span class='extras_span'>
-                            <input @click="useAxios(extras2)" :v-model="extras2" type="checkbox" :id="extras2.id" class="inp_extras" name="extras[]" :value="extras2.value"
+                            <input @click="useAxios(inside_oven)" :v-model="inside_oven" type="checkbox" id="inside_oven" class="inp_extras" name="extras[]" value="inside_oven"
                             @if($extras[0]['inside_oven'] ?? false )
                                 checked="checked"
-                                :check="extras2.check = true"
+                                :check="inside_oven.check = true"
                             @endif
                             >
-                            <label for="extras2"></label>
+                            <label for="inside_oven"></label>
                              Inside oven
                         </span>
                         <span class='extras_span'>
-                            <input @click="useAxios(extras3)" :v-model="extras3" type="checkbox" :id="extras3.id" class="inp_extras" name="extras[]" :value="extras3.value"
+                            <input @click="useAxios(garage_swept)" :v-model="garage_swept" type="checkbox" id="garage_swept" class="inp_extras" name="extras[]" value="garage_swept"
                             @if($extras[0]['garage_swept'] ?? false )
                                 checked="checked"
-                                :check="extras3.check = true"
+                                :check="garage_swept.check = true"
                             @endif
                             >
-                            <label for="extras3"></label>
+                            <label for="garage_swept"></label>
                             Garage Swept
                         </span>
                         <span class='extras_span'>
-                            <input @click="useAxios(extras4)" :v-model="extras4" type="checkbox" :id="extras4.id" class="inp_extras" name="extras[]" :value="extras4.value"
+                            <input @click="useAxios(inside_cabinets)" :v-model="inside_cabinets" type="checkbox" id="inside_cabinets" class="inp_extras" name="extras[]" value="inside_cabinets"
                             @if($extras[0]['inside_cabinets'] ?? false )
                                 checked="checked"
-                                :check="extras4.check = true"
+                                :check="inside_cabinets.check = true"
                             @endif
                             >
-                            <label for="extras4"></label>
+                            <label for="inside_cabinets"></label>
                             Inside Cabinets
                         </span>
                     </div>
@@ -92,33 +92,33 @@
                 <div class="col-9">
                     <div class="row justify-content-around">
                         <span class='extras_span' style="width: 83px;">
-                            <input @click="useAxios(extras5)" type="checkbox" :v-model="extras5" :id="extras5.id" class="inp_extras" name="extras[]" :value="extras5.value"
+                            <input @click="useAxios(laundry_wash_s_dry)" type="checkbox" :v-model="laundry_wash_s_dry" id="laundry_wash_s_dry" class="inp_extras" name="extras[]" value="laundry_wash_s_dry"
                             @if($extras[0]['laundry_wash_s_dry'] ?? false )
                                 checked="checked"
-                                :check="extras5.check = true"
+                                :check="laundry_wash_s_dry.check = true"
                             @endif
                             >
-                            <label for="extras5"></label>
+                            <label for="laundry_wash_s_dry"></label>
                             Laundry Wash & Dry
                         </span>
                         <span class='extras_span' style="width: 75px;">
-                            <input @click="useAxios(extras6)" type="checkbox" :v-model="extras6" :id="extras6.id" class="inp_extras" name="extras[]" :value="extras6.value"
+                            <input @click="useAxios(bed_sheet_change)" type="checkbox" :v-model="bed_sheet_change" id="bed_sheet_change" class="inp_extras" name="extras[]" value="bed_sheet_change"
                             @if($extras[0]['bed_sheet_change'] ?? false )
                                 checked="checked"
-                                :check="extras6.check = true"
+                                :check="bed_sheet_change.check = true"
                             @endif
                             >
-                            <label for="extras6"></label>
+                            <label for="bed_sheet_change"></label>
                             Bed sheet Change
                         </span>
                         <span class='extras_span'>
-                            <input @click="useAxios(extras7)" :v-model="extras7" type="checkbox" :id="extras7.id" class="inp_extras" name="extras[]" :value="extras7.value"
+                            <input @click="useAxios(blinds_cleaning)" :v-model="blinds_cleaning" type="checkbox" id="blinds_cleaning" class="inp_extras" name="extras[]" value="blinds_cleaning"
                             @if($extras[0]['blinds_cleaning'] ?? false )
                                 checked="checked"
-                                :check="extras7.check = true"
+                                :check="blinds_cleaning.check = true"
                             @endif
                             >
-                            <label for="extras7"></label>
+                            <label for="blinds_cleaning"></label>
                             Blinds Cleaning
                         </span>
                     </div>
@@ -131,32 +131,48 @@
                         @if($order['frequency'] == 'weekly')
                             :attr="init()"
                         @endif
-                        name="frequency_last" :value="weekly.value"
+                        name="frequency_last" value="weekly"
                         :class="{ blu_col2: weekly.clicked, last_btn: tr}"
                         >
-                        <p class="inl_block">$<span class='weekly'>{{($total[2])}}</span> per cleanig</p>
+                        <div v-if="!total.total">
+                            <p class="inl_block">$<span class='monthly'>{{($total[2])}}</span> per cleanig</p>
+                        </div>
+                        <div v-else>
+                            <p class="inl_block">$<span class='monthly'>@{{total.weekly}}</span> per cleanig</p>
+                        </div>
                     </div>
                     <div :class="{ blu_col: biweekly.blueDiv, inl_block: tr}">
                         <input type="submit" @click="btnClick(biweekly, $event)" :v-model="biweekly" 
                         @if($order['frequency'] == 'biweekly')
                             :attr="init()"
                         @endif
-                        name="frequency_last" :value="biweekly.value" 
+                        name="frequency_last" value="biweekly" 
                         :class="{ blu_col2: biweekly.clicked, last_btn: tr}"
                         >
-                        <p class="inl_block">$<span class='biweekly'>{{($total[3])}}</span> per cleanig</p>
+                        <div v-if="!total.total">
+                            <p class="inl_block">$<span class='monthly'>{{($total[3])}}</span> per cleanig</p>
+                        </div>
+                        <div v-else>
+                            <p class="inl_block">$<span class='monthly'>@{{total.biweekly}}</span> per cleanig</p>
+                        </div>
                     </div>
                     <div :class="{ blu_col: monthly.clicked, inl_block: tr}">
                         <input type="submit" @click="btnClick(monthly, $event)" :v-model="monthly"
                         @if ($order['frequency'] == 'monthly')  
                             :attr="init()"
                         @endif
-                        name="frequency_last" :value="monthly.value"
+                        name="frequency_last" value="monthly"
                         :class="{ blu_col2: monthly.clicked, last_btn: tr}"
                         >
-                        <p class="inl_block">$<span class='monthly'>{{($total[4])}}</span> per cleanig</p>
+                        <div v-if="!total.total">
+                            <p class="inl_block">$<span class='monthly'>{{($total[4])}}</span> per cleanig</p>
+                        </div>
+                        <div v-else>
+                            <p class="inl_block">$<span class='monthly'>@{{total.monthly}}</span> per cleanig</p>
+                        </div>
                     </div>
                     </form>
+
                 </div>
 
             </div>
