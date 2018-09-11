@@ -14,15 +14,19 @@ var obj = new Vue({
             biweekly: {value: "biweekly", clicked: false, init: false},
             monthly: {value: "monthly", clicked: false, init: false},
             tr: true,
-            initProp: 0
+            initProp: 0,
+            topLine: {visible: false}
         },
     methods: {
         useAxios(data){
             data.check = !data.check;
             if(data.check){                                            //add
-                var val2 = data.value;
+                var extrasName = data.value;
                 var textrr3 = data.text;
-                Vue.set(obj.extrasText, val2, textrr3);
+                console.log(data);
+                console.log(extrasName, textrr3);
+                Vue.set(obj.extrasText, data.value, data.text);
+                this.writeTopLine();
                 axios.post('/extras', {
                     ajaxExtraSave: data.value
                 })
@@ -40,11 +44,10 @@ var obj = new Vue({
                     console.log(error);
                 });
             } else {                                                   //delete
-                console.log(data);
                 var id = data.id;
                 var val = data.value;
-                console.log(val);
                 Vue.delete(obj.extrasText, val);
+                this.writeTopLine();
                 axios.post('/extras', {
                     ajaxExtraDelete: data.value
                 })
@@ -68,7 +71,6 @@ var obj = new Vue({
             Vue.set(obj.weekly, 'clicked', false);
             Vue.set(obj.biweekly, 'clicked', false);
             Vue.set(obj.monthly, 'clicked', false);
-            console.log('after');
             data.clicked = !data.clicked;
             axios.post('/extras', {                                             //frequency_last: biweekly
                     frequency_last: data.value
@@ -112,7 +114,6 @@ var obj = new Vue({
         },
         init() {
             if(this.initProp === 0) {
-                console.log(this.initProp);
                 if (this.weekly.init) {
                     Vue.set(this.weekly, 'clicked', true);
                     Vue.delete(this.weekly, 'init');
@@ -127,10 +128,19 @@ var obj = new Vue({
                 }
                 this.initProp++;
             } else {
-               console.log(this);
+            }
+        },
+        writeTopLine(){
+            var count = Object.keys(obj.extrasText).length;
+            if(count >= 1){
+                Vue.set(obj.topLine, 'visible', true);
+            } else {
+                Vue.set(obj.topLine, 'visible', false);
             }
         }
     }
 })
 
 obj.addExtrasText();
+obj.writeTopLine();
+

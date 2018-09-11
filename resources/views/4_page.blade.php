@@ -123,7 +123,8 @@
                         </span>
                     </div>
                 </div><hr>
-                <div class="col-9">
+
+                <div class="col-12">
                     <p style="margin: 0px">Confirm your cleaning frequency</p>
                     <div :class="{ blu_col: weekly.clicked, inl_block: tr}">
                         <input type="submit" @click="btnClick(weekly, $event)" :v-model="weekly"
@@ -157,8 +158,9 @@
                     </div>
                     </form>
                 </div>
+
             </div>
-            <div class="col-3" id='my_side_bar'>
+            <div class="col-3" id='my_side_bar' style="height: 100%;">
                 <p class="price_top">Clining price</p>
                 <div class="col-12" style="text-align: center;">
                     <p>Your Cleaning Plan:
@@ -192,28 +194,31 @@
                         <p class="price_bottom">Coupon $0.00</p>
                     </div>
                 <div class="col-12">
+
+                </div>
+                <ul style="padding: 0" >
+                    <ol v-for="extra in extrasText" style="padding: 0">+ 15 for @{{extra}}</ol>
+                </ul >
+                <div :class="{today: topLine.visible}">
                     <p style="display: inline-block;">TODAY'S TOTAL &nbsp</p>
                     <p class="blu_col" style="display: inline-block;">$
                         <span v-if="!total.total" >{{$total[0]}}</span>
                         <span v-else v-text="total.curent"></span>
                     </p>
-
                 </div>
                 </div>
-                <ul style="padding: 0">
-                    <ol v-for="extra in extrasText">+ 15 for @{{extra}}</ol>
-                </ul>
             </div>
         </div>
 
             <div class="row ">
             <div class="col-9"></div>
-                <div class="col-3 align-self-center">
+                <!-- <div class="col-3 align-self-center">
                     <form method="post" action="pay">
                         {{ csrf_field() }}
                         <div class="row justify-content-center">
                             <label for='pay_div'>
                                 <div id="pay_div">
+                                    <input type="submit" name="" id="pay_btn" value="I want pay now">
                                     <script
                                         src="https://checkout.stripe.com/checkout.js" class="stripe-button"
                                         data-key="{{ env('STRIPE_PUB_KEY') }}"
@@ -223,98 +228,15 @@
                                         data-locale="auto"
                                         data-currency="usd">
                                      </script>
+                                     </input>
                                  </div> 
                              </label>
-                             <!-- <input type="submit" name="send_mail" value="confirm" class="last_btn" style="margin-top: -30px;" > -->
                         </div>
                     </form>
-                </div>
+                </div> -->
             </div>
     </div>
 </div>
-<!-- 
-<script type="text/javascript">
-    $('#pay_div').click(function(e){                                                //  button stripe click
-        $('button.stripe-button-el')[0].click();
-    })
-    var inpp = $('.inp_extras').click(function(e){                                  // add delete ectras
-        var checked_extra = [];
-        if($(this).prop("checked")) {
-            checked_extra['save'] = $(this).val();
-        } else {
-            checked_extra['delete'] = $(this).val();
-        }
-        console.log(checked_extra);
-        $.ajax({
-            url: '/extras',
-            type: 'POST',
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            },
-            data: {
-                      ajaxExtraSave: checked_extra['save'],
-                      ajaxExtraDelete: checked_extra['delete'],
-                  },
-            cache: false,
-            dataType: 'json',
-            success: function(data){
-                $('.add_total').text(data.total[0]);
-                $('.weekly').text(data.total[2]);
-                $('.biweekly').text(data.total[3]);
-                $('.monthly').text(data.total[4]);
-                $('.' + data.clicked_btn).text(data.total[0]);
-            }
-        });
-    })
-    $('input[name="send_mail"').click(function(e){                                   // send mail don`t use
-        e.preventDefault();
-        $.ajax({
-            url: '/mail/send',
-            type: 'POST',
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            },
-            data: {send_mail: 'send_mail'},
-            cache: false,
-            dataType: 'json',
-            success: function(response){
-                console.log(response.success);
-                alert('please check ypur email');
-            }
-        })
-    })
-        $('input[name="frequency_last"').click(function(e){                        // click button frequency
-            e.preventDefault();
-            var extras = $('input[type="checkbox"]:checked');
-            var checked_extras = [];
-            extras.each(function(e){
-                checked_extras.push($(this).val());
-            })
-            var frequency = $(this).val();
-            $.ajax({
-                url: '/extras',
-                type: 'POST',
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                },
-                data: {extras: checked_extras, frequency_last: frequency},
-                cache: false,
-                dataType: 'json',
-                success: function(data){
-                    $('.add_total').text(data.total[0]);
-                    $('.weekly').text(data.total[2]);
-                    $('.biweekly').text(data.total[3]);
-                    $('.monthly').text(data.total[4]);
-                    $('.' + data.clicked_btn).text(data.total[0]);
-
-                    $('.blu_col input').removeClass('blu_col2').parent('div').removeClass('blu_col');
-                    $('input[value=' + data.clicked_btn +']').addClass('blu_col2').parent('div').addClass('blu_col');
-                   
-                }
-            })
-        })
-</script>
- -->
 
 @endsection
 

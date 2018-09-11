@@ -14,11 +14,11 @@
         <title>HomeClean</title>
 
         <style>
-
-            #pay_div > button {
-                display: none;
+            .today {
+                border-top: 1px solid;
+                padding: 10px;
             }
-            #pay_div {
+            #pay_btn {
                 height: 44.4px;
                 padding: 10px;
                 display: inline-block;
@@ -27,10 +27,10 @@
                 text-align: center;
                 border: 1px solid #000;
                 cursor: pointer;
-                background-color: inherit;
+                background-color: #f8fafc;
             }
-            #pay_div:after {
-                content: "I want pay now";
+            .stripe-button-el {
+                display: none !important;
             }
             .last_btn
             {
